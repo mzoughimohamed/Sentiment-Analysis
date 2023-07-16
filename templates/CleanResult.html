@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+{%block title%}Resultat de Nettoyage{%endblock%}
+{%block content%}
+{%if done %}
+<h1 style="color: white;">Téléchargez votre fichier</h1>
+<a href="{%url 'download' %}" download target="_blank" class="btn btn-primary btn-lg active">Télécharger</a>
+<br/>
+{% else %}
+<h1 style="color: white;">{{message}}</h1>
+<div class="alert alert-secondary" role="alert">
+   Votre fichier doit être de format xlsx 
+  </div>
+{% endif %}
+<a href="{%url 'home'%}" class="btn btn-secondary btn-lg active" style="margin-top: 2%;">Retour</a></p>
+{%endblock%}

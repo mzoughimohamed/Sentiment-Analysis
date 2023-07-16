@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{%block title%}Entrainement{%endblock%}
+{%block content%}
+<div class="d-flex flex-column">
+<form method="POST" enctype="multipart/form-data" action="{% url 'metrics'%}">
+    {% csrf_token %}
+    <div class="alert alert-primary" role="alert">
+        Nous vous recommandons d'utiliser nos outils de nettoyage avant de former vos modèles!
+      </div>
+    <div class="input-group mb-3">
+        <div class="custom-file">
+            <input type="file" name="document" id="inp" required class="custom-file-input" id="inputGroupFile02"/>
+            <label class="custom-file-label" for="inputGroupFile02" >Choisissez votre propre dataset</label>
+        </div>
+        <div class="input-group-append">
+            <button type="submit" onclick="addDiv();" class="btn btn-secondary">Entraîner</button>
+        </div>
+    </div>
+</form>
+<div id="Output"></div>
+</div>
+<script>
+    function addDiv(){
+        div=document.getElementById("Output");
+        List=div.classList
+        List.add("alert");
+        inp=document.getElementById("inp");
+        if(inp.files.length===0){
+            message="Selectionner votre dataset SVP";
+            List.add("alert-danger");
+        }
+        else{
+            message="Entrainement et Etablissement des graphics (F1, exactitude...)";
+            List.add("alert-success");
+        }
+        
+        
+        div.innerHTML=message;
+      }
+</script>
+{%endblock%}

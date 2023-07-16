@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{%block title%}Nettoyage jeu de données {%endblock%}
+{%block content%}
+<div class="d-flex flex-column">
+<form method="POST" enctype="multipart/form-data" action="{% url 'result'%}">
+    {% csrf_token %}
+    {%if error%}
+        <div class="alert alert-danger">{{message}}</div>
+    {%else %}
+    <div class="alert alert-primary" role="alert">
+        Remarque: Votre fichier Excel doit être formé de deux colonnes (Commentaire, Sentiment) !
+  </div>
+    {% endif %}
+    <div class="input-group mb-3">
+        <div class="custom-file">
+            <input type="file" name="document" required class="custom-file-input" id="inputGroupFile02"/>
+            <label class="custom-file-label" for="inputGroupFile02">Choisissez votre fichier</label>
+        </div>
+        <div class="input-group-append">
+            <button type="submit"  class="btn btn-secondary">Nettoyer</button>
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Mots vides</span>
+        </div>
+        <input type="text" name="stopwords" class="form-control" placeholder="Ajouter des mots vides au choix (delimiteur=;)" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      
+      
+</form>
+{%endblock%}

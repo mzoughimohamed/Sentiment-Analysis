@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{%block title%}Web Crawler{%endblock%}
+{%block content%}
+<div class="d-flex flex-column">
+<form method="POST" enctype="multipart/form-data" action="{% url 'resultfile'%}">
+    {% csrf_token %}
+    {%if error %}
+        <div class="alert alert-danger">{{message}}</div>
+    {% endif %}
+    <div class="input-group mb-3">
+        <div class="custom-file">
+            <input type="file" name="document"  required class="custom-file-input" id="inputGroupFile02"/>
+            <label class="custom-file-label" for="inputGroupFile02">choisissez votre fichier.txt</label>
+        </div>
+        <div class="input-group-append">
+            <button type="submit"  class="btn btn-secondary">Scraper</button>
+        </div>
+    </div>
+</form>
+<a href="{%url 'homes' %}" class="btn btn-primary btn-lg btn-block active"> Page précédente</a>
+</div>
+{%endblock%}

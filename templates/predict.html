@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{%block title%}prediction{%endblock%}
+{%block content%}
+<div class="d-flex flex-column">
+{%load static%}
+<form method="POST" action="{% url 'response'%}">
+    {% csrf_token %}
+    <div class="input-group mb-3" style=" flex-wrap:nowrap";>
+        <input type="text" name="comment" required placeholder="Tapez votre commentaire" style="width:92%;" />
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit" style="background-color:grey;color:white;">Prédire</button>
+        </div>
+    </div>
+</form>
+{% if etat %}
+<br/><br/>
+<h3 style="color:white;text-align:center;">Le commentaire  <b><em>{{Comment}}</em></b> est  classifié selon : <br/><br/></h3>
+    <h5 style="text-align: center;">
+    <table class="table table-hover" style="background-color: white;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Modèle  </th>
+                <th scope="col">Prédiction</th>
+            </tr>
+        </thead>
+        <tbody >
+          <tr>
+            <th scope="row">1</th>
+            <td>Stochastic Gradient Descent</td>
+            <td>{{emo.0}}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Multinomial Naives Bayes</td>
+            <td>{{emo.1}}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Linear Regression</td>
+            <td>{{emo.2}}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Linear Support Vector Machine</td>
+            <td>{{emo.3}}</td>
+          </tr>
+          </tbody>
+          </table>
+        </h5>
+        
+{%endif%}
+</div>
+{%endblock%}

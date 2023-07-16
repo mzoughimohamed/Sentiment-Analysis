@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+{%block title%}
+Téléchargez votre modeles
+{%endblock%}
+{%block content%}
+<script
+  src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+{%if error %}
+<h1 style="color:white;">Une erreur s'est produite</h1>
+<div class="alert alert-warning" role="alert">
+ {{message}}
+</div>
+{% else %}
+<a href="{%url 'filedownload' %}" download target="_blank" class="btn btn-primary btn-lg active" style="width:100%;margin-left:5%;">Téléchargez votre Modeles</a>
+<div id="container" style="width:1 em;">
+  <div class="container">
+    
+      <div class="sub-container">
+        <div class="box" style="background-color:white;width:400  ;">
+          <h4 style="color:rgb(150,150,150);text-align:center;">Accuracy</h4>
+          <canvas id="accurancy-chart" ></canvas>
+        </div>
+
+      <div class="box" style="background-color:white;">
+        <h4 style="color:rgb(150,150,150);text-align:center;">Recall</h4>
+        <canvas id="recall-chart" ></canvas>
+      </div>
+    </div>
+    <div class="sub-container">
+      <div class="box" style="background-color:white;">
+        <h4 style="color:rgb(150,150,150);text-align:center;">Precision</h4>
+        <canvas id="precision-chart" ></canvas>
+      </div>
+      <div class="box" style="background-color:white;">
+        <h4 style="color:rgb(150,150,150);text-align:center;">F1</h4>
+        <canvas id="f1-chart" ></canvas>
+      </div>
+  </div>
+</div>
+
+  </div>
+
+  
+  <script>
+    var dataset1={
+      label:"unigramme",
+      data:{{data.0}},
+      lineTension: 0,
+    fill: false,
+  borderColor: 'rgb(255, 0, 86 )'
+    }; 
+    var dataset2={
+      label:"bigramme",
+      data:{{data.1}},
+      lineTension: 0,
+    fill: false,
+  borderColor: 'rgb(0, 251, 255)'
+    };
+    var dataset3={
+      label:"trigramme",
+      data:{{data.2}},
+      lineTension: 0,
+    fill: false,
+  borderColor: 'rgb(201, 203, 0)'
+    };
+    var dataset={
+      labels:{{labels|safe}},
+      datasets:[dataset1,dataset2,dataset3]
+    };
+
+    var config = {
+      type: 'line',
+      data: dataset,
+      options: {
+        responsive: true,
+        legend: {
+          fontColor: "white"
+      },
+      scales: { 
+          yAxes: [{
+              ticks: {
+                  fontColor: "black",
+              }
+          }],
+          xAxes: [{
+            ticks: {
+                fontColor: "black",
+            }
+        }]
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Accurancy',
+          fontColor:"#000000"}}
+      },
+    };
+  var recall_2= {
+    label: 'Moyenne Pondérée',
+    data:{{recall.1}},
+    backgroundColor: 'rgba(0, 132, 200, 0.6)',
+    borderWidth: 0,
+  };
+  var recall_1= {
+    label: 'Moyenne macro',
+    data: {{recall.0}},
+    backgroundColor: 'rgba(99, 132, 0, 0.6)',
+    borderWidth: 0,
+  };
+   var recalls={
+     labels:{{labels|safe}},
+     datasets:[recall_1,recall_2],
+   }
+    var config1 = {
+      type: 'bar',
+      data: recalls ,
+      options: {
+        responsive: true,
+        legend: {
+          fontColor: "black"
+      },
+      scales: { 
+          yAxes: [{
+              ticks: {
+                  fontColor: "black",
+              }
+          }],
+          xAxes: [{
+            ticks: {
+                fontColor: "black",
+            }
+        }]
+      }
+      }
+    };
+    var data2={
+      label: 'Moyenne Ponderée',
+      data:{{f1.1}},
+      backgroundColor: 'rgba(0, 132, 200, 0.6)',
+      borderWidth: 0,
+    };
+    var data1= {
+      label: 'Moyenne Macro',
+      data: {{f1.0}},
+      backgroundColor: 'rgba(99, 132, 0, 0.6)',
+      borderWidth: 0,
+    };
+    var lastdata={
+      labels:{{labels|safe}},
+      datasets:[data1,data2],
+    }
+    var conf1 = {
+      type: 'bar',
+      data:lastdata,
+      options: {
+        responsive: true,
+        legend: {
+          fontColor: "black"
+      },
+      scales: { 
+          yAxes: [{
+              ticks: {
+                  fontColor: "black",
+              }
+          }],
+          xAxes: [{
+            ticks: {
+                fontColor: "black",
+            }
+        }]
+      }
+      }
+    };
+    var macro= {
+      label: 'Moyenne Macro',
+      data: {{precision.0}},
+      backgroundColor: 'rgba(99, 132, 0, 0.6)',
+      borderWidth: 0,
+    };
+    var weighted= {
+      label: 'Moyenne Pondérée',
+      data:{{precision.1}},
+      backgroundColor: 'rgba(0, 132, 200, 0.6)',
+      borderWidth: 0,
+    };
+    var datas={
+      labels:{{labels|safe}},
+      datasets:[macro,weighted]
+    };
+    var conf = {
+      type: 'bar',
+      data: datas,
+      options: {
+        responsive: true,
+        legend: {
+          fontColor: "black"
+      },
+      scales: { 
+          yAxes: [{
+              ticks: {
+                  fontColor: "black",
+              }
+          }],
+          xAxes: [{
+            ticks: {
+                fontColor: "black",
+            }
+        }]
+      }
+      }
+    };
+    window.onload = function() {
+      var ctx = document.getElementById('accurancy-chart').getContext('2d');
+      var cty = document.getElementById('precision-chart').getContext('2d');
+      var ctz = document.getElementById('recall-chart').getContext('2d');
+      var ctw = document.getElementById('f1-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+      window.mygra=new Chart(cty,conf);
+      window.myPie1 = new Chart(ctz, config1);
+      window.mygra1=new Chart(ctw,conf1);
+    };
+
+  </script>
+  {% endif %}
+{%endblock%}

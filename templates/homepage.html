@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+{%block title %}Analyse Sentimental Tunisienne{%endblock%}
+{%block content %}
+<div class="card-group" style="margin-top:3%;">
+  <div class="card" style="flex-direction: flex-end;">
+    <img src="static/images/bg.jpg" class="card-img-top" style="height:8rem;"  alt="web-scraping">
+    <div class="card-body">
+      <h5 class="card-title">Scrapez votre page facebook</h5>
+      <p class="card-text">Extraction de données à partir d'une page Facebook cible</p>
+      <a href="{%url 'src' %}" class="btn btn-primary">Essayez-le</a>
+    </div>
+  </div>
+  <div class="card" style="flex-direction: flex-end;">
+    <img src="static/images/cleaning.png" class="card-img-top" style="height:8rem;" alt="cleaning dataset picture">
+    <div class="card-body">
+      <h5 class="card-title">Nettoyez votre corpus</h5>
+      <p class="card-text">Effectuer quelques prétraitements sur le corpus</p>
+      <a href="{%url 'clean'%}" class="btn btn-primary">Essayez-le</a>
+    </div>
+  </div>
+  <div class="card" style="flex-direction: flex-end;">
+    <img src="static/images/train.png" class="card-img-top" style="height:8rem;"  alt="training">
+    <div class="card-body">
+      <h5 class="card-title">Entrainez vos modèles</h5>
+      <p class="card-text">Modèles téléchargables et affichage de quelques métriques</p>
+      <a href="{%url 'tr' %}" class="btn btn-primary">Essayez-le</a>
+    </div>
+    </div>
+  <div class="card" style="flex-direction: flex-end;">
+    <img src="static/images/sa.jpg" class="card-img-top" style="height:8rem;"  alt="Model">
+    <div class="card-body">
+      <h5 class="card-title">Prédisez la sortie de votre texte</h5>
+      <p class="card-text">Essayez notre systéme d'analyse de sentiments</p><br/>
+      <a href="{% url 'pr' %}" class="btn btn-primary">Essayez-le</a>
+    </div>
+  </div>
+</div>
+
+{%endblock%}

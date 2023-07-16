@@ -1,0 +1,14 @@
+{%extends "base.html"%}
+{%block title%}My Result Page{%endblock%}
+{%block content%}
+{% if etat %}
+<div class="alert alert-success">Scraping est bien effectué.Telechargez vous document</div>
+<a href="{%url 'telecharger' %}" download target="_blank" class="btn btn-primary btn-lg btn-block active">Télecharger votre fichier excel</a> </a>
+<a href="{%url 'downloadjson' %}" download target="_blank" class="btn btn-primary btn-lg btn-block active">Télecharger Les données en plus de détails</a><br/>
+{% else %}
+<div class="alert alert-danger"> Désole,Une erreur est etabli...</div>
+<div class="alert alert-secondary">{{Message}} </div>
+{%endif%}
+<a href="{%url 'downloadfull' %}" download target="_blank" class="btn btn-primary btn-lg btn-block active">Télecharger tous les Informations déja scrappées par notre platforme</a><br/>
+<a href="{%url 'homes' %}" class="btn btn-secondary btn-lg btn-block active">Retourner</a></p>
+{%endblock%}

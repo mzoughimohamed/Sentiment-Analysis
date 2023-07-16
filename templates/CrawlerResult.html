@@ -1,0 +1,14 @@
+{%extends "base.html"%}
+{%block title%}My Result Page{%endblock%}
+{%block content%}
+{% if etat %}
+<h1 style="color:white;">{{message}}</h1>
+<a href="{%url 'downloads' %}" download target="_blank" class="btn btn-primary btn-lg btn-block active">{{message}}</a><br/>
+<a href="{%url 'downloadjson' %}" download target="_blank" class="btn btn-primary btn-lg btn-block active">Télecharger Les données en plus de détails</a><br/>
+{% else %}
+<h1 style="color:white;">Un problème est survenu</h1>
+<div class="alert alert-secondary"> {{message}}</div>
+{%endif%}
+<a href="{%url 'downloadfull' %}" download target="_blank" class="btn btn-primary btn-lg btn-block active">Télecharger tous les Informations déja scrappées par notre platforme</a><br/>
+<a href="{%url 'homes'%}" class="btn btn-secondary btn-lg btn-block active">Retourner</a></p>
+{%endblock%}

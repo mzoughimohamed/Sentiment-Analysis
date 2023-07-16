@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{%block title%}Facebook Scraping Tool{%endblock%}
+{%block content%}
+<div id="main" class="d-flex  flex-column">
+{%load static%}
+<form method="POST" action="{% url 'resulturl'%}">
+    {% csrf_token %}
+    <div class="input-group mb-3"  style=" flex-wrap:nowrap";>
+        <input type="url" name="url" placeholder="Tapez l'URL de la page facebook cible" style="width:92%;" />
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" onclick="addDiv();" type="submit" style="color:white;background-color:grey;">Scraper</button>
+        </div>
+    </div>
+    <div style="display:inline-block">
+        <input type="checkbox" name="cb" />
+        <label for="cb" style="color:white;">Voulez-vous utiliser notre liste prédéfinie d'URLs ?</label>
+    </div>
+</form>
+<a href="{% url 'file' %}" class="btn btn-primary btn-lg active">Voulez-vous utiliser votre propre fichier d'URLs</a>
+<div id="Output"></div>
+</div>
+<script>
+    
+    function addDiv(){
+      div=document.getElementById("Output");
+      div.innerHTML="Le processus de scraping déja en execution patienter une moment SVP."
+      List=div.classList
+      List.add("alert");
+      List.add("alert-success");
+    }
+</script>
+<!--
+<button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5" id="not">
+  <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="" class="rounded me-2" alt="">
+      <strong class="me-auto">Bootstrap</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
+<script>
+    function fun(){
+        document.getElementById("not").style.display="block";
+    }
+    document.getElementById("liveToastBtn").addEventListener("click",fun);
+    
+</script>
+-->
+{%endblock%}
